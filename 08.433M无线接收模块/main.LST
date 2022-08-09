@@ -1,0 +1,100 @@
+C51 COMPILER V9.52.0.0   MAIN                                                              08/09/2022 11:28:48 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "reg52.h"
+   2          
+   3          sbit VbrationS = P2^7;
+   4          sbit Relay = P2^6;
+   5          sbit A433 = P2^5;
+   6          sbit B433 = P2^4;
+   7          
+   8          void Delay50us()    //@11.0592MHz
+   9          {
+  10   1        unsigned char i;
+  11   1        i = 20;
+  12   1        while (--i);
+  13   1      }
+  14          
+  15          
+  16          
+  17          void Delay100ms()   //@11.0592MHz
+  18          {
+  19   1        unsigned char i, j;
+  20   1      
+  21   1        i = 180;
+  22   1        j = 73;
+  23   1        do
+  24   1        {
+  25   2          while (--j);
+  26   2        } while (--i);
+  27   1      }
+  28          
+  29          
+  30          
+  31          void Delay200ms()   //@11.0592MHz
+  32          {
+  33   1        unsigned char i, j, k;
+  34   1        i = 2;
+  35   1        j = 103;
+  36   1        k = 147;
+  37   1        do
+  38   1        {
+  39   2          do
+  40   2          {
+  41   3            while (--k);
+  42   3          } while (--j);
+  43   2        } while (--i);
+  44   1      }
+  45          
+  46          
+  47          
+  48          
+  49          int main(){
+  50   1        //遥控打开或者解除上锁;
+  51   1        unsigned char LockStatus = 1;
+  52   1        Relay = 1;
+  53   1        while(1){
+  54   2          if(A433){
+  55   3            Relay = 0;
+C51 COMPILER V9.52.0.0   MAIN                                                              08/09/2022 11:28:48 PAGE 2   
+
+  56   3            Delay200ms();
+  57   3            Relay = 1;
+  58   3            LockStatus = 0;
+  59   3          }
+  60   2          if(B433){
+  61   3            Relay = 0;
+  62   3            Delay100ms();
+  63   3            Relay = 1;
+  64   3            LockStatus = 1;
+  65   3          }
+  66   2          if(!LockStatus){
+  67   3            if(!VbrationS){
+  68   4              Delay50us();
+  69   4              if(!VbrationS){
+  70   5                Relay = 0;
+  71   5              }
+  72   4            }
+  73   3          }
+  74   2        }
+  75   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     71    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
