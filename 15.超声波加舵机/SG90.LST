@@ -1,0 +1,23 @@
+C51 COMPILER V9.52.0.0   SG90                                                              08/11/2022 15:44:26 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE SG90
+OBJECT MODULE PLACED IN SG90.OBJ
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE SG90.c BROWSE INCDIR(..\15.³¬Éù²¨¼Ó¶æ»ú) DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
