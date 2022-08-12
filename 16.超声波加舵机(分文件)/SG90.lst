@@ -1,0 +1,48 @@
+C51 COMPILER V9.52.0.0   SG90                                                              08/11/2022 19:57:53 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE SG90
+OBJECT MODULE PLACED IN SG90.obj
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE Hardware\SG90.c BROWSE INCDIR(.\Basic;.\Hardware;.\User) DEBUG OBJECTEXTEND
+                    - PRINT(.\SG90.lst) TABS(2) OBJECT(SG90.obj)
+
+line level    source
+
+   1          #include "SG90.h"
+   2          
+   3          void Timer0Handle() interrupt 1 {
+   4   1        cnt++;
+   5   1        if(cnt == jd){
+   6   2          PWM = 0;
+   7   2        }
+   8   1        if(cnt == 40){
+   9   2          PWM = 1;
+  10   2          cnt = 0;
+  11   2        }
+  12   1        TH0 = 0xFE;
+  13   1        TL0 = 0x33;
+  14   1      }
+  15          
+  16          void SG_180(){
+  17   1        jd = 5;
+  18   1        cnt = 0;
+  19   1      }
+  20          
+  21          void SG_0(){
+  22   1        jd = 1;
+  23   1        cnt = 0;
+  24   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     48    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

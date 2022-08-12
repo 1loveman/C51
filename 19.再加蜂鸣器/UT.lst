@@ -1,0 +1,51 @@
+C51 COMPILER V9.52.0.0   UT                                                                08/11/2022 22:00:00 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE UT
+OBJECT MODULE PLACED IN UT.obj
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE Hardware\UT.c BROWSE INCDIR(.\Basic;.\Hardware;.\User) DEBUG OBJECTEXTEND P
+                    -RINT(.\UT.lst) TABS(2) OBJECT(UT.obj)
+
+line level    source
+
+   1          #include "UT.h"
+   2          
+   3          void UTStart(){
+   4   1        Trig = 0;
+   5   1        Trig = 1;
+   6   1        Delay10us();
+   7   1        Trig = 0;
+   8   1      }
+   9          
+  10          
+  11          double Get_Distance(){
+  12   1        double Time;
+  13   1        //开始计时
+  14   1        UTStart();
+  15   1        //等待Echo拉高
+  16   1        while(!Echo);
+  17   1        //开始计时
+  18   1        Timer1_ON();
+  19   1        //等待Echo拉低
+  20   1        while(Echo);
+  21   1        //关闭计时
+  22   1        Timer1_OFF();
+  23   1        //计算时间
+  24   1        Time = 1.085 * (TH1 * 256 +TL1);
+  25   1        //返回距离
+  26   1        return (0.017 * Time);
+  27   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     82    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       4
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

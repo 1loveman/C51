@@ -1,0 +1,29 @@
+C51 COMPILER V9.52.0.0   433                                                               08/12/2022 07:52:34 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE 433
+OBJECT MODULE PLACED IN 433.obj
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE Hardware\433.c BROWSE INCDIR(.\Basic;.\Hardware;.\User) DEBUG OBJECTEXTEND 
+                    -PRINT(.\433.lst) TABS(2) OBJECT(433.obj)
+
+line level    source
+
+   1          #include "433.h"
+   2          
+   3          unsigned char Get_D0(){
+   4   1        return D0;
+   5   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      6    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

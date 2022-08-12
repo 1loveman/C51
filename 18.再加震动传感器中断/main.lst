@@ -1,0 +1,57 @@
+C51 COMPILER V9.52.0.0   MAIN                                                              08/11/2022 21:01:04 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.obj
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE User\main.c BROWSE INCDIR(.\Basic;.\Hardware;.\User) DEBUG OBJECTEXTEND PRI
+                    -NT(.\main.lst) TABS(2) OBJECT(main.obj)
+
+line level    source
+
+   1          #include "sys.h"
+   2          #include "DELAY.h"
+   3          #include "TIMER.h"
+   4          #include "SG90.h"
+   5          #include "UT.h"
+   6          #include "KEY.h"
+   7          #include "VABRATION.h"
+   8          
+   9          unsigned char cnt = 0;
+  10          unsigned char jd = 1;
+  11          unsigned char Vabration = 0;
+  12          
+  13          int main(){
+  14   1        Timer0();
+  15   1        Timer1();
+  16   1        INT0_Init();
+  17   1        while(1){
+  18   2          if(!GetKey1Status()||Get_Distance() < 10 || Vabration){
+  19   3            //转180；
+  20   3            SG_180();
+  21   3            //延时2秒
+  22   3            Delay2000ms();
+  23   3            Vabration = 0;
+  24   3          }
+  25   2          else{
+  26   3            //转回0
+  27   3            SG_0();
+  28   3            //延时300毫秒
+  29   3            Delay300ms();
+  30   3          }
+  31   2        }
+  32   1      }
+  33          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     55    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      3    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

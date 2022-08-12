@@ -1,0 +1,10 @@
+"STARTUP.obj",
+"main.obj",
+"DELAY.obj",
+"TIMER.obj",
+"SG90.obj",
+"UT.obj",
+"KEY.obj",
+"VABRATION.obj" 
+TO "muban" 
+RAMSIZE(256) 
