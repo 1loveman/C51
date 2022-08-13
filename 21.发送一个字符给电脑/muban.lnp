@@ -1,0 +1,6 @@
+"STARTUP.obj",
+"main.obj",
+"TIMER.obj",
+"UART.obj" 
+TO "muban" 
+RAMSIZE(256) 
