@@ -1,0 +1,58 @@
+C51 COMPILER V9.52.0.0   UART                                                              08/14/2022 15:27:08 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE UART
+OBJECT MODULE PLACED IN UART.obj
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE Basic\UART.c BROWSE INCDIR(.\Basic;.\Hardware;.\User) DEBUG OBJECTEXTEND PR
+                    -INT(.\UART.lst) TABS(2) OBJECT(UART.obj)
+
+line level    source
+
+   1          #include "UART.h"
+   2          
+   3          
+   4          
+   5          void UARTInit(){
+   6   1        PCON &= 0x7F;
+   7   1        AUXR = 0x01;
+   8   1        SCON = 0x50;
+   9   1        TMOD &= 0x0F;
+  10   1        TMOD |= 0x20;
+  11   1        TH1 = 0xFD;
+  12   1        TL1 = 0xFD;
+  13   1        ET1 = 0;
+  14   1        TR1 = 1;
+  15   1        EA = 1;
+  16   1        ES = 1;
+  17   1      }
+  18          
+  19          void URDataHandler() interrupt 4{
+  20   1        char buf = SBUF;
+  21   1        if(RI){
+  22   2          RI = 0;
+  23   2          if(buf == 'O'){
+  24   3            LED1 = 0;
+  25   3          }
+  26   2          if(buf == 'S'){
+  27   3            LED1 = 1;
+  28   3          }
+  29   2        }
+  30   1        if(TI){
+  31   2          TI = 0;
+  32   2          LED2 = !LED2;
+  33   2        }
+  34   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     66    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

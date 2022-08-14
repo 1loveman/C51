@@ -1,0 +1,51 @@
+C51 COMPILER V9.52.0.0   MAIN                                                              08/14/2022 11:14:56 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.obj
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE User\main.c BROWSE INCDIR(.\Basic;.\Hardware;.\User) DEBUG OBJECTEXTEND PRI
+                    -NT(.\main.lst) TABS(2) OBJECT(main.obj)
+
+line level    source
+
+   1          #include "sys.h"
+   2          #include "UART.h"
+   3          #include "TIMER.h"
+   4          
+   5          int main(){
+   6   1        //采用定时器计数其实跟软件计时原理一样，但是此处由于while(!RI);导致第一次输入的时候程序一直在while等待
+   7   1        //导致实际第一个数据效果特别灵敏，但是如果连发两个数据就能看出实际上接收和执行是有延时的。
+   8   1        //还是需要中断才是无延时。
+   9   1        char ReceiveData;
+  10   1        Timer0();
+  11   1        UARTInit();
+  12   1        while(1){
+  13   2          if(T0_Flag){
+  14   3            SBUF = 'a';
+  15   3      //      ReceiveData = UReceiveByte();
+  16   3            ReceiveData = SBUF;
+  17   3            if(ReceiveData == 'O'){
+  18   4              LED1 = 0;
+  19   4            }
+  20   3            else if(ReceiveData == 'S'){
+  21   4              LED1 = 1;
+  22   4            }
+  23   3            RI = 0;
+  24   3            T0_Flag = 0;
+  25   3          }
+  26   2        }
+  27   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     34    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,81 @@
+C51 COMPILER V9.52.0.0   UART                                                              08/14/2022 22:22:12 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE UART
+OBJECT MODULE PLACED IN UART.obj
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE Basic\UART.c BROWSE INCDIR(.\Basic;.\Hardware;.\User) DEBUG OBJECTEXTEND PR
+                    -INT(.\UART.lst) TABS(2) OBJECT(UART.obj)
+
+line level    source
+
+   1          #include "UART.h"
+   2          
+   3          unsigned char UART_REN_STA = 0;
+   4          char URBuf[RSIZE];
+   5          
+   6          void UARTInit(){
+   7   1        PCON &= 0x7F;
+   8   1        AUXR = 0x01;
+   9   1        SCON = 0x50;
+  10   1        TMOD &= 0x0F;
+  11   1        TMOD |= 0x20;
+  12   1        TH1 = 0xFD;
+  13   1        TL1 = 0xFD;
+  14   1        ET1 = 0;
+  15   1        TF1 = 0;
+  16   1        TR1 =1;
+  17   1        EA = 1;
+  18   1        ES = 1;
+  19   1      }
+  20          
+  21          void SendBuf(char *str){
+  22   1        while(*str != '\0'){
+  23   2          SBUF = *str++;
+  24   2          while(!TI);
+  25   2          TI = 0;
+  26   2        }
+  27   1      }
+  28          
+  29          void UARTHandler() interrupt 4{
+  30   1        char ch = SBUF;
+  31   1        if(RI){
+  32   2          RI = 0;
+  33   2          if(!(UART_REN_STA & 0x80)){
+  34   3            if(UART_REN_STA & 0x40){
+  35   4              if(ch == 0x0A){
+  36   5                UART_REN_STA |= 0x80;
+  37   5              }
+  38   4              else{
+  39   5                UART_REN_STA = 0;
+  40   5              }
+  41   4            }
+  42   3            else{
+  43   4              if(ch == 0x0D){
+  44   5                UART_REN_STA |= 0x40;
+  45   5              }
+  46   4              else{
+  47   5                URBuf[(UART_REN_STA++) & 0x3F] = ch;
+  48   5                if((UART_REN_STA&0x3F) > RSIZE){
+  49   6                  UART_REN_STA = 0;
+  50   6                }
+  51   5              }
+  52   4            }
+  53   3          }
+  54   2        }
+C51 COMPILER V9.52.0.0   UART                                                              08/14/2022 22:22:12 PAGE 2   
+
+  55   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    153    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     21       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

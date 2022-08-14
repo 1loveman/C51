@@ -1,0 +1,71 @@
+C51 COMPILER V9.52.0.0   UART                                                              08/14/2022 21:50:39 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE UART
+OBJECT MODULE PLACED IN UART.obj
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE Basic\UART.c BROWSE INCDIR(.\Basic;.\Hardware;.\User) DEBUG OBJECTEXTEND PR
+                    -INT(.\UART.lst) TABS(2) OBJECT(UART.obj)
+
+line level    source
+
+   1          #include "UART.h"
+   2          
+   3          
+   4          char Rbuf[MAXSIZE];
+   5          
+   6          void UARTInit(){
+   7   1        PCON &= 0x7F;
+   8   1        AUXR = 0x01;
+   9   1        SCON = 0x50;
+  10   1        TMOD &= 0x0F;
+  11   1        TMOD |= 0x20;
+  12   1        TH1 = 0xFD;
+  13   1        TL1 = 0xFD;
+  14   1        ET1 = 0;
+  15   1        TR1 = 1;
+  16   1        EA = 1;
+  17   1        ES = 1;
+  18   1      }
+  19          
+  20          void URDataHandler() interrupt 4{
+  21   1        static unsigned char i = 0;
+  22   1        if(RI){
+  23   2          RI = 0;
+  24   2          Rbuf[i++] = SBUF;
+  25   2          if(MAXSIZE == i){
+  26   3            i = 0;
+  27   3            memset(Rbuf,'\0',MAXSIZE);
+  28   3          }
+  29   2          if(strstr(Rbuf,"OP")){//在字符串中寻找对应的子串，如果 有返回1反之为0
+  30   3            LED1 = 0;
+  31   3            i = 0;
+  32   3            memset(Rbuf,'\0',MAXSIZE);
+  33   3          }
+  34   2          if(strstr(Rbuf,"SH")){
+  35   3            LED1 = 1;
+  36   3            i = 0;
+  37   3            memset(Rbuf,'\0',MAXSIZE);
+  38   3          }
+  39   2        }
+  40   1        if(TI){
+  41   2          TI = 0;
+  42   2          LED2 = !LED2;
+  43   2          
+  44   2        }
+  45   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    217    ----
+   CONSTANT SIZE    =      6    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6    ----
+   IDATA SIZE       =   ----    ----
+C51 COMPILER V9.52.0.0   UART                                                              08/14/2022 21:50:39 PAGE 2   
+
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
